@@ -22,6 +22,7 @@
             android:clipToPadding="false"
             android:layoutDirection="ltr"
             android:textDirection="ltr"
+            android:padding="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
