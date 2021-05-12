@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/team_fragment">
+
+    <fragment
+        android:id="@+id/team_fragment"
+        android:name="com.example.support.team.TeamFragment"
+        android:label="team_fragment"
+        tools:layout="@layout/team_fragment" >
+        <action
+            android:id="@+id/action_showDetail"
+            app:destination="@id/member_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/member_fragment"
+        android:name="com.example.support.member.MemberFragment"
+        android:label="member_fragment"
+        tools:layout="@layout/member_fragment">
+        <argument
+            android:name="selectedProperty"
+            app:argType="com.example.support.networking.TeamMember"
+            />
+        <action
+            android:id="@+id/action_back"
+            app:destination="@id/team_fragment" />
+    </fragment>
+
+</navigation>

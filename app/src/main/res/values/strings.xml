@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">support</string>
+    <string name="app_name">Support</string>
+    <string name="all">Show all</string>
+    <string name="occupied">Rent</string>
+    <string name="available">Buy</string>
+    <string name="space">" "</string>
+    <string name="json_stub"></string>
 </resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/all_option"
+        android:title="@string/all" />
+    <item
+        android:id="@+id/occupied_option"
+        android:title="@string/occupied" />
+    <item
+        android:id="@+id/available_option"
+        android:title="@string/available" />
+</menu>
