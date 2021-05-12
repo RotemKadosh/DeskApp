@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <variable
+        name="viewModel"
+        type="com.example.support.member.MemberViewModel" />
+</data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="0dp">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/member_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:background="?attr/colorPrimary"
+            android:minHeight="?attr/actionBarSize"
+            android:textAlignment="textStart"
+            android:textDirection="firstStrongLtr"
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationContentDescription="back"
+            app:navigationIcon="@drawable/ic_baseline_arrow_back"
+            app:title="back"
+            app:titleTextColor="@color/white"
+            android:gravity="start" />
+
+
+        <ImageView
+            android:id="@+id/main_photo_image"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{viewModel.selectedProperty.imgSrcUrl}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.384"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/member_toolbar"
+            tools:ignore="MissingClass"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
+        <ImageView
+            android:id="@+id/available_image"
+            android:layout_width="41dp"
+            android:layout_height="37dp"
+            android:src="@drawable/ic_baseline_available"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/main_photo_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.129"
+            app:layout_constraintStart_toStartOf="@+id/main_photo_image"
+            app:layout_constraintTop_toBottomOf="@+id/member_toolbar"
+            app:layout_constraintVertical_bias="0.897"
+            app:srcCompat="@android:drawable/presence_online" />
+
+
+        <TextView
+            android:id="@+id/member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="12dp"
+            android:text="@{viewModel.displayFullName()}"
+            android:textAlignment="viewStart"
+            android:textColor="#de000000"
+            android:textSize="39sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
+            tools:text="Rotem Kadosh" />
+
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@{viewModel.selectedProperty.phone}"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="@+id/member_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/member_name"
+            app:layout_constraintTop_toBottomOf="@+id/member_name"
+            tools:text="000-000-0000" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@{viewModel.selectedProperty.email}"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/phone_number"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/phone_number"
+            app:layout_constraintTop_toBottomOf="@+id/phone_number"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="0000@email.com" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
