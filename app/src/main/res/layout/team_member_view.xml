@@ -12,7 +12,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="427dp">
+        android:layout_height="wrap_content">
 
         <ImageView
             android:id="@+id/avatar"
@@ -26,31 +26,32 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.496"
             tools:srcCompat="@tools:sample/avatars" />
+
         <ImageView
             android:id="@+id/available"
             android:layout_width="116dp"
             android:layout_height="65dp"
             android:src="@{member.available ? @drawable/ic_baseline_available : @drawable/ic_baseline_block}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.201"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.353"
+            app:layout_constraintBottom_toBottomOf="@+id/avatar"
+            app:layout_constraintEnd_toEndOf="@+id/avatar"
+            app:layout_constraintHorizontal_bias="0.118"
+            app:layout_constraintStart_toStartOf="@+id/avatar"
+            app:layout_constraintTop_toTopOf="@+id/avatar"
+            app:layout_constraintVertical_bias="1.0"
             tools:src="@drawable/ic_baseline_available" />
+
         <TextView
             android:id="@+id/name"
             android:layout_width="247dp"
             android:layout_height="66dp"
-            android:layout_marginEnd="48dp"
             android:text="@{ member.firstName + @string/space + member.lastName}"
             android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
-            app:layout_constraintTop_toTopOf="@+id/avatar"
-            app:layout_constraintVertical_bias="0.201"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/avatar"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/avatar"
+            app:layout_constraintTop_toBottomOf="@+id/avatar"
+            app:layout_constraintVertical_bias="0.0"
             tools:text="Rotem kadosh" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
