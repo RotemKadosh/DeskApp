@@ -18,10 +18,12 @@
 package com.example.support.networking
 
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.Types
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 enum class TeamMemberApiFilter(val value: Boolean) {
     SHOW_AVAILABLE(true),
@@ -47,7 +49,7 @@ private val retrofit = Retrofit.Builder()
 interface TeamMemberApiService {
 
     @GET("profiles")
-    suspend fun getProperties(): List<TeamMember>
+    suspend fun getProperties(@Query("filter") available : Boolean): List<TeamMember>
 
 }
 

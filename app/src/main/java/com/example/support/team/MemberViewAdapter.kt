@@ -13,7 +13,7 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
             MemberViewAdapter.TeamMemberViewHolder>(DiffCallback) {
 
 
-    class TeamMemberViewHolder(private var binding: TeamMemberViewBinding):
+    class TeamMemberViewHolder(private var binding: TeamMemberViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(member: TeamMember) {
             binding.member = member
@@ -29,13 +29,14 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
         }
 
         override fun areContentsTheSame(oldItem: TeamMember, newItem: TeamMember): Boolean {
-            return (oldItem.firstName == newItem.firstName && oldItem.lastName == newItem.lastName)
+            return (oldItem.available == newItem.available && oldItem.imgSrcUrl == newItem.imgSrcUrl)
         }
     }
 
-
-    override fun onCreateViewHolder(parent: ViewGroup,
-                                    viewType: Int): TeamMemberViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TeamMemberViewHolder {
         return TeamMemberViewHolder(TeamMemberViewBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
@@ -49,7 +50,7 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
     }
 
     class OnClickListener(val clickListener: (teamMember: TeamMember) -> Unit) {
-        fun onClick(teamMember:TeamMember) = clickListener(teamMember)
+        fun onClick(teamMember: TeamMember) = clickListener(teamMember)
     }
 }
 

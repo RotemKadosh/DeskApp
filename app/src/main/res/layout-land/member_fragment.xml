@@ -1,59 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    >
-    <data>
-        <import type="android.view.View"/>
-        <variable
-            name="member"
-            type="com.example.support.networking.TeamMember"/>
-    </data>
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools">
+
+<data>
+    <variable
+        name="viewModel"
+        type="com.example.support.member.MemberViewModel" />
+</data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="427dp">
+        android:layout_height="match_parent">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/member_appbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.appbar.MaterialToolbar
+                android:id="@+id/member_toolbar"
+                style="@style/Widget.MaterialComponents.Toolbar.Primary"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/back"
+                app:titleTextColor="@color/white"
+                app:navigationIcon="@drawable/ic_baseline_arrow_back"/>
+
+        </com.google.android.material.appbar.AppBarLayout>
+
 
         <ImageView
-            android:id="@+id/avatar"
-            android:layout_width="344dp"
-            android:layout_height="284dp"
-            android:layout_marginStart="48dp"
-            android:padding="0dp"
-            app:imageUrl="@{member.imgSrcUrl}"
+            android:id="@+id/main_photo_image"
+            android:layout_width="287dp"
+            android:layout_height="250dp"
+            android:layout_marginStart="44dp"
+            android:layout_marginTop="32dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerCrop"
+            app:imageUrl="@{viewModel.selectedProperty.imgSrcUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.496"
-            tools:srcCompat="@tools:sample/avatars" />
+            app:layout_constraintTop_toBottomOf="@+id/member_appbar_layout"
+            app:layout_constraintVertical_bias="0.098"
+            tools:ignore="MissingClass"
+            tools:src="@tools:sample/backgrounds/scenic" />
+
         <ImageView
-            android:id="@+id/available"
-            android:layout_width="116dp"
-            android:layout_height="65dp"
-            android:src="@{member.available ? @drawable/ic_baseline_available : @drawable/ic_baseline_block}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.201"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
-            app:layout_constraintTop_toBottomOf="@+id/name"
-            app:layout_constraintVertical_bias="0.353"
-            tools:src="@drawable/ic_baseline_available" />
+            android:id="@+id/available_image"
+            android:layout_width="55dp"
+            android:layout_height="41dp"
+            android:src="@drawable/ic_baseline_available"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="@+id/main_photo_image"
+            app:layout_constraintEnd_toEndOf="@+id/main_photo_image"
+            app:layout_constraintHorizontal_bias="0.956"
+            app:layout_constraintStart_toStartOf="@+id/main_photo_image"
+            app:layout_constraintTop_toTopOf="@+id/main_photo_image"
+            app:layout_constraintVertical_bias="0.956" />
+
         <TextView
-            android:id="@+id/name"
-            android:layout_width="247dp"
-            android:layout_height="66dp"
-            android:layout_marginEnd="48dp"
-            android:text="@{ member.firstName + @string/space + member.lastName}"
-            android:textSize="35sp"
-            app:layout_constraintBottom_toBottomOf="@+id/avatar"
+            android:id="@+id/member_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="52dp"
+            android:text="@{viewModel.displayFullName()}"
+            android:textAlignment="viewStart"
+            android:textColor="#de000000"
+            android:textSize="39sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/avatar"
-            app:layout_constraintTop_toTopOf="@+id/avatar"
-            app:layout_constraintVertical_bias="0.201"
-            tools:text="Rotem kadosh"
-            android:layout_marginRight="48dp" />
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/main_photo_image"
+            app:layout_constraintTop_toTopOf="@+id/main_photo_image"
+            tools:text="Rotem Kadosh" />
 
+        <TextView
+            android:id="@+id/phone_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="56dp"
+            android:text="@{viewModel.selectedProperty.phone}"
+            android:textAlignment="viewStart"
+            app:layout_constraintEnd_toEndOf="@+id/member_name"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/member_name"
+            app:layout_constraintTop_toBottomOf="@+id/member_name"
+            tools:text="000-000-0000" />
+
+        <TextView
+            android:id="@+id/email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:text="@{viewModel.selectedProperty.email}"
+            android:textAlignment="viewStart"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/phone_number"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/phone_number"
+            app:layout_constraintTop_toBottomOf="@+id/phone_number"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="0000@email.com" />
     </androidx.constraintlayout.widget.ConstraintLayout>
-
 </layout>

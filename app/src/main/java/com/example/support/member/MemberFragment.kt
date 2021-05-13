@@ -9,10 +9,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.member_fragment.view.*
 
 class MemberFragment : Fragment() {
     private lateinit var binding: MemberFragmentBinding
@@ -45,13 +47,8 @@ class MemberFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val toolbar: androidx.appcompat.widget.Toolbar = view.findViewById(R.id.member_toolbar)
-        toolbar.setNavigationOnClickListener{
-            it.findNavController().navigate(R.id.action_back)
-        }
-
+        val toolbar = this.binding.memberAppbarLayout.member_toolbar
+        toolbar.setNavigationOnClickListener { view.findNavController().navigateUp() }
         super.onViewCreated(view, savedInstanceState)
     }
-
-
 }

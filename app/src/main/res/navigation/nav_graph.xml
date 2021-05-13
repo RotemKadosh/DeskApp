@@ -25,9 +25,6 @@
             android:name="selectedProperty"
             app:argType="com.example.support.networking.TeamMember"
             />
-        <action
-            android:id="@+id/action_back"
-            app:destination="@id/team_fragment" />
     </fragment>
 
 </navigation>
