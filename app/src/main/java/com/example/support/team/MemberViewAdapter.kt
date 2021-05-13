@@ -21,11 +21,9 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
             binding.executePendingBindings()
         }
     }
-
-
     companion object DiffCallback : DiffUtil.ItemCallback<TeamMember>() {
         override fun areItemsTheSame(oldItem: TeamMember, newItem: TeamMember): Boolean {
-            return oldItem === newItem
+            return oldItem.email == newItem.email
         }
 
         override fun areContentsTheSame(oldItem: TeamMember, newItem: TeamMember): Boolean {

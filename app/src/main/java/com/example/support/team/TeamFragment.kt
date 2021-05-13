@@ -30,32 +30,31 @@ class TeamFragment: Fragment() {
             viewModel.displayMemberDetails(it)
         })
 
-        viewModel.navigateToSelectedMember.observe(this, Observer {
-            if (null != it) {
+        viewModel.navigateToSelectedMember.observe(viewLifecycleOwner, {
+            it?.let {
                 this.findNavController().navigate(TeamFragmentDirections.actionShowDetail(it))
                 viewModel.displayMemberDetailsComplete()
             }
         })
 
-        setHasOptionsMenu(true)
         return binding.root
     }
 
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.team_menu, menu)
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        viewModel.updateFilter(
-            when (item.itemId) {
-                R.id.occupied_option -> TeamMemberApiFilter.SHOW_BLOCK
-                R.id.available_option -> TeamMemberApiFilter.SHOW_AVAILABLE
-                else -> TeamMemberApiFilter.SHOW_ALL
-            }
-        )
-        return true
-    }
+//
+//    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+//        inflater.inflate(R.menu.team_menu, menu)
+//        super.onCreateOptionsMenu(menu, inflater)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        viewModel.updateFilter(
+//            when (item.itemId) {
+//                R.id.occupied_option -> TeamMemberApiFilter.SHOW_BLOCK
+//                R.id.available_option -> TeamMemberApiFilter.SHOW_AVAILABLE
+//                else -> TeamMemberApiFilter.SHOW_ALL
+//            }
+//        )
+//        return true
+//    }
 }
 

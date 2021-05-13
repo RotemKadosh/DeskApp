@@ -18,14 +18,11 @@ data class TeamMemberApiStatus(var isVisible: Boolean, @DrawableRes var imageRes
 
 class TeamViewModel : ViewModel() {
 
-    // The internal MutableLiveData that stores the status of the most recent request
     private val _status = MutableLiveData<TeamMemberApiStatus>()
-
     val status: LiveData<TeamMemberApiStatus>
         get() = _status
 
     private val _members = MutableLiveData<List<TeamMember>>()
-
     val members: LiveData<List<TeamMember>>
         get() = _members
 
@@ -35,15 +32,14 @@ class TeamViewModel : ViewModel() {
 
 
     init {
-        getTeamMembers(TeamMemberApiFilter.SHOW_ALL)
+        getTeamMembers()
     }
 
-
-    private fun getTeamMembers(filter: TeamMemberApiFilter) {
+    private fun getTeamMembers() {
         viewModelScope.launch {
             _status.value = TeamMemberApiStatus(true, R.drawable.loading_animation)
             try {
-                _members.value = MembersApi.retrofitService.getProperties(filter.value)
+                _members.value = MembersApi.retrofitService.getProperties()
                 _status.value = TeamMemberApiStatus(false, R.drawable.loading_animation)
             } catch (e: Exception) {
                 _status.value = TeamMemberApiStatus(true, R.drawable.ic_connection_error)
@@ -51,10 +47,6 @@ class TeamViewModel : ViewModel() {
                 Log.e("rotem", e.message.toString())
             }
         }
-    }
-
-    fun updateFilter(filter: TeamMemberApiFilter) {
-        getTeamMembers(filter)
     }
 
     fun displayMemberDetails(member: TeamMember) {

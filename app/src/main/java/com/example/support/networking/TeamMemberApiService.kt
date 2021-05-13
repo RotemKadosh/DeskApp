@@ -45,12 +45,9 @@ private val retrofit = Retrofit.Builder()
         .baseUrl(BASE_URL)
         .build()
 
-
 interface TeamMemberApiService {
-
     @GET("profiles")
-    suspend fun getProperties(@Query("filter") available : Boolean): List<TeamMember>
-
+    suspend fun getProperties(): List<TeamMember>
 }
 
 object MembersApi {
