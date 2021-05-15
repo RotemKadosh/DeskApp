@@ -2,15 +2,14 @@ package com.example.support.team
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.support.databinding.TeamMemberViewBinding
 import com.example.support.networking.TeamMember
 
 class MemberViewAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<TeamMember,
-            MemberViewAdapter.TeamMemberViewHolder>(DiffCallback) {
+    ListAdapter<TeamMember, MemberViewAdapter.TeamMemberViewHolder>(DiffCallback){
 
 
     class TeamMemberViewHolder(private var binding: TeamMemberViewBinding) :
@@ -21,6 +20,7 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
             binding.executePendingBindings()
         }
     }
+
     companion object DiffCallback : DiffUtil.ItemCallback<TeamMember>() {
         override fun areItemsTheSame(oldItem: TeamMember, newItem: TeamMember): Boolean {
             return oldItem.email == newItem.email

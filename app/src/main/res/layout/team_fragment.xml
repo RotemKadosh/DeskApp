@@ -23,9 +23,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/team_list"
             android:layout_width="match_parent"
-            android:layout_height="677dp"
+            android:layout_height="0dp"
             android:clipToPadding="false"
-            android:padding="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintRight_toRightOf="parent"
@@ -40,12 +39,10 @@
             android:layout_height="wrap_content"
             android:src="@{ContextCompat.getDrawable(context,viewModel.status.imageResource)}"
             android:visibility="@{viewModel.status.visible ? View.VISIBLE : View.GONE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintBottom_toBottomOf="@id/team_list"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.25" />
+            app:layout_constraintTop_toBottomOf="@id/team_toolbar" />
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/team_toolbar"
@@ -53,7 +50,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/team_menu"

@@ -14,14 +14,11 @@
         android:layout_height="match_parent"
         app:cardElevation="5dp"
         app:cardCornerRadius="10dp"
-        app:cardUseCompatPadding="true"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        app:layout_constraintVertical_bias="0.5"
-        app:layout_constraintHorizontal_bias="0.5"
-        >
+        app:cardUseCompatPadding="true">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -33,8 +30,6 @@
                 android:layout_height="276dp"
                 app:imageUrl="@{member.imgSrcUrl}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.075"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.489"
@@ -42,30 +37,29 @@
 
             <ImageView
                 android:id="@+id/available"
-                android:layout_width="54dp"
-                android:layout_height="33dp"
-                android:layout_marginStart="24dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
                 android:src="@{member.available ? @drawable/ic_baseline_available : @drawable/ic_baseline_block}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintBottom_toBottomOf="@+id/name"
+                app:layout_constraintEnd_toStartOf="@+id/name"
                 app:layout_constraintStart_toEndOf="@+id/avatar"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.136"
+                app:layout_constraintTop_toTopOf="@+id/name"
+                app:layout_constraintVertical_bias="0.0"
                 tools:src="@drawable/ic_baseline_available" />
 
             <TextView
                 android:id="@+id/name"
-                android:layout_width="164dp"
-                android:layout_height="32dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:text="@{ member.firstName + @string/space + member.lastName}"
-                android:textSize="20sp"
+                android:textSize="@dimen/team_member_view_name"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.083"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/available"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.136"
+                app:layout_constraintTop_toTopOf="@+id/avatar"
+                app:layout_constraintVertical_bias="0.0"
                 tools:text="Rotem kadosh" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
