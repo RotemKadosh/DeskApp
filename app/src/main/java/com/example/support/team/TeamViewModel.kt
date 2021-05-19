@@ -18,6 +18,8 @@ data class TeamMemberApiStatus(var isVisible: Boolean, @DrawableRes var imageRes
 
 class TeamViewModel : ViewModel() {
 
+    var searchText: String? = null
+
     private val _status = MutableLiveData<TeamMemberApiStatus>()
     val status: LiveData<TeamMemberApiStatus>
         get() = _status
@@ -44,7 +46,6 @@ class TeamViewModel : ViewModel() {
             } catch (e: Exception) {
                 _status.value = TeamMemberApiStatus(true, R.drawable.ic_connection_error)
                 _members.value = ArrayList()
-                Log.e("rotem", e.message.toString())
             }
         }
     }

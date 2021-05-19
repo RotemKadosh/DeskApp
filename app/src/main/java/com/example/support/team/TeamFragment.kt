@@ -1,16 +1,16 @@
 package com.example.support.team
 
-import android.app.SearchManager
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.example.support.databinding.TeamFragmentBinding
 import com.example.support.R
-import com.example.support.networking.TeamMemberApiFilter
+import com.example.support.databinding.TeamFragmentBinding
+
 
 class TeamFragment: Fragment() {
 
@@ -23,6 +23,7 @@ class TeamFragment: Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d("lifecycle" , "fragment on createview")
         binding = TeamFragmentBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
@@ -49,13 +50,23 @@ class TeamFragment: Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        Log.d("lifecycle" , "fragment on createoptionMenu")
         inflater.inflate(R.menu.team_menu, menu)
         val itemSearch = menu.findItem(R.id.searc_action)
         val searchView : SearchView = itemSearch.actionView as SearchView
+        val options: Int = searchView.imeOptions
+        searchView.imeOptions = options or EditorInfo.IME_FLAG_NO_EXTRACT_UI
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 val adapter = (binding.teamList.adapter as MemberViewAdapter)
                 adapter.filter.filter(newText)
+                if(newText?.isEmpty() == true){
+                    viewModel.searchText = null
+                }
+                else{
+                    viewModel.searchText = newText
+                }
+
                 return true
             }
 
@@ -63,6 +74,11 @@ class TeamFragment: Fragment() {
                 return false
             }
         })
+        if (viewModel.searchText != null){
+            searchView.requestFocus()
+            searchView.setQuery(viewModel.searchText, true )
+            searchView.isIconified = false
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
