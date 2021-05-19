@@ -6,4 +6,6 @@
     <string name="space">" "</string>
     <string name="back">Back</string>
     <string name="search">Search</string>
+    <string name="avatar_content">avatar</string>
+    <string name="available_content">available</string>
 </resources>

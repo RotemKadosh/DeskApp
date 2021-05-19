@@ -35,7 +35,8 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@tools:sample/avatars"
+                android:contentDescription="@string/avatar_content" />
 
             <ImageView
                 android:id="@+id/available"
@@ -48,7 +49,8 @@
                 app:layout_constraintStart_toEndOf="@+id/avatar"
                 app:layout_constraintTop_toTopOf="@+id/name"
                 app:layout_constraintVertical_bias="0.0"
-                tools:src="@drawable/ic_baseline_available" />
+                tools:src="@drawable/ic_baseline_available"
+                android:contentDescription="@string/available_content" />
 
             <TextView
                 android:id="@+id/name"

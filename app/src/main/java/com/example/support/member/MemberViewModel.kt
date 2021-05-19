@@ -16,20 +16,13 @@ class MemberViewModel( memberProperty: TeamMember, app: Application) : AndroidVi
     val selectedProperty: LiveData<TeamMember>
         get() = _selectedProperty
 
-    private val _isAvailable = MutableLiveData<Boolean>()
-
-    val isAvailable: LiveData<Boolean>
-        get() = _isAvailable
-
     init {
         _selectedProperty.value = memberProperty
-        _isAvailable.value = memberProperty.available
     }
 
     val displayAvailability = Transformations.map(selectedProperty) {
         return@map when (it.available) {
             true -> R.drawable.ic_baseline_available
-            false -> R.drawable.ic_baseline_block
             else -> R.drawable.ic_baseline_block
         }
     }
