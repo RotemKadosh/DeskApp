@@ -3,4 +3,7 @@
     <dimen name="member_fragment_name_size">36sp</dimen>
     <dimen name="team_member_view_name">25sp</dimen>
     <dimen name="margin_default">16dp</dimen>
+    <dimen name="corner_radius_default">10dp</dimen>
+    <dimen name="card_elevation_default">5dp</dimen>
+    <dimen name="member_fragment_bottom">100dp</dimen>
 </resources>

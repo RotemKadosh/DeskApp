@@ -35,11 +35,11 @@
             android:id="@+id/status_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@{ContextCompat.getDrawable(context,viewModel.status.imageResource)}"
             android:visibility="@{viewModel.status.visible ? View.VISIBLE : View.GONE}"
+            app:imageResource="@{viewModel.status.imageResource}"
             app:layout_constraintBottom_toBottomOf="@id/team_list"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,14 +2,15 @@
 
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-<data>
-    <variable
-        name="viewModel"
-        type="com.example.support.member.MemberViewModel" />
-</data>
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.support.member.MemberViewModel" />
+    </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -19,11 +20,9 @@ xmlns:tools="http://schemas.android.com/tools">
             android:id="@+id/main_photo_image"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="@dimen/margin_default"
-            android:layout_marginTop="@dimen/margin_default"
             android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
             app:imageUrl="@{viewModel.selectedProperty.imgSrcUrl}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/member_name"
@@ -39,7 +38,7 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_marginBottom="@dimen/margin_default"
             app:imageResource="@{viewModel.displayAvailability.intValue()}"
             app:layout_constraintBottom_toBottomOf="@+id/main_photo_image"
-            app:layout_constraintEnd_toEndOf="@+id/main_photo_image"/>
+            app:layout_constraintEnd_toEndOf="@+id/main_photo_image" />
 
         <TextView
             android:id="@+id/member_name"
@@ -51,6 +50,8 @@ xmlns:tools="http://schemas.android.com/tools">
             android:text="@{viewModel.displayFullName()}"
             android:textColor="@color/black"
             android:textSize="@dimen/member_fragment_name_size"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@+id/phone_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/main_photo_image"
@@ -63,6 +64,8 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
             android:text="@{viewModel.selectedProperty.phone}"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintStart_toStartOf="@+id/member_name"
             app:layout_constraintTop_toBottomOf="@+id/member_name"
             tools:text="000-000-0000" />
@@ -72,6 +75,8 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.selectedProperty.email}"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/phone_number"
             app:layout_constraintTop_toBottomOf="@+id/phone_number"

@@ -21,13 +21,13 @@
             android:id="@+id/main_photo_image"
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:contentDescription="TODO"
             app:imageUrl="@{viewModel.selectedProperty.imgSrcUrl}"
             app:layout_constraintBottom_toTopOf="@+id/member_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:src="@tools:sample/backgrounds/scenic"
-            android:contentDescription="TODO" />
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <ImageView
             android:id="@+id/available_image"
@@ -35,10 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="36dp"
             android:layout_marginBottom="36dp"
+            android:contentDescription="TODO"
             app:imageResource="@{viewModel.displayAvailability.intValue()}"
             app:layout_constraintBottom_toBottomOf="@+id/main_photo_image"
-            app:layout_constraintEnd_toEndOf="@+id/main_photo_image"
-            android:contentDescription="TODO" />
+            app:layout_constraintEnd_toEndOf="@+id/main_photo_image" />
 
         <TextView
             android:id="@+id/member_name"
@@ -48,6 +48,8 @@
             android:text="@{viewModel.displayFullName()}"
             android:textColor="@color/black"
             android:textSize="@dimen/member_fragment_name_size"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintBottom_toTopOf="@+id/phone_number"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
@@ -59,7 +61,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
             android:text="@{viewModel.selectedProperty.phone}"
-            android:textAlignment="viewStart"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintStart_toStartOf="@+id/member_name"
             app:layout_constraintTop_toBottomOf="@+id/member_name"
             tools:text="000-000-0000" />
@@ -69,8 +72,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginBottom="100dp"
+            android:layout_marginBottom="@dimen/member_fragment_bottom"
             android:text="@{viewModel.selectedProperty.email}"
+            android:maxLines="3"
+            android:ellipsize="end"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="@+id/phone_number"
             app:layout_constraintTop_toBottomOf="@+id/phone_number"
