@@ -11,8 +11,6 @@
             type="com.example.support.team.TeamViewModel" />
 
         <import type="android.view.View" />
-        <import type="androidx.core.content.ContextCompat" />
-
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -15,9 +15,6 @@ xmlns:tools="http://schemas.android.com/tools">
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
-
         <ImageView
             android:id="@+id/main_photo_image"
             android:layout_width="0dp"
@@ -40,13 +37,9 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_default"
             android:layout_marginBottom="@dimen/margin_default"
-            android:src="@drawable/ic_baseline_available"
+            app:imageResource="@{viewModel.displayAvailability.intValue()}"
             app:layout_constraintBottom_toBottomOf="@+id/main_photo_image"
-            app:layout_constraintEnd_toEndOf="@+id/main_photo_image"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="@+id/main_photo_image"
-            app:layout_constraintTop_toTopOf="@+id/main_photo_image"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintEnd_toEndOf="@+id/main_photo_image"/>
 
         <TextView
             android:id="@+id/member_name"
@@ -56,14 +49,12 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_marginTop="@dimen/margin_default"
             android:layout_marginBottom="@dimen/margin_default"
             android:text="@{viewModel.displayFullName()}"
-            android:textAlignment="viewStart"
-            android:textColor="#de000000"
+            android:textColor="@color/black"
             android:textSize="@dimen/member_fragment_name_size"
             app:layout_constraintBottom_toTopOf="@+id/phone_number"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/main_photo_image"
             app:layout_constraintTop_toTopOf="@+id/main_photo_image"
-            app:layout_constraintHorizontal_bias="0.0"
             tools:text="Rotem Kadosh" />
 
         <TextView
@@ -72,9 +63,6 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
             android:text="@{viewModel.selectedProperty.phone}"
-            android:textAlignment="viewStart"
-            app:layout_constraintEnd_toEndOf="@+id/member_name"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/member_name"
             app:layout_constraintTop_toBottomOf="@+id/member_name"
             tools:text="000-000-0000" />
@@ -84,12 +72,9 @@ xmlns:tools="http://schemas.android.com/tools">
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{viewModel.selectedProperty.email}"
-            android:textAlignment="viewStart"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/phone_number"
-            app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/phone_number"
             app:layout_constraintTop_toBottomOf="@+id/phone_number"
-            tools:text="0000@email.com" />
+            tools:text="rotemkadosh@email.com" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

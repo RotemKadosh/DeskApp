@@ -38,16 +38,14 @@ class MemberViewModel( memberProperty: TeamMember, app: Application) : AndroidVi
         _isAvailable.value = memberProperty.available
     }
 
-    val displayAvailability = Transformations.map(selectedProperty){
-        val ans :Int
-        when(it.available){
-            true -> ans = R.drawable.ic_baseline_available
-            false-> ans = R.drawable.ic_baseline_block
-            else -> ans = R.drawable.ic_baseline_block
+    val displayAvailability = Transformations.map(selectedProperty) {
+        return@map when (it.available) {
+            true -> R.drawable.ic_baseline_available
+            false -> R.drawable.ic_baseline_block
+            else -> R.drawable.ic_baseline_block
         }
-
-        return@map ans
     }
+
     fun displayFullName(): String? {
         var fullName: String? = _selectedProperty.value?.firstName + " " +selectedProperty.value?.lastName
         return fullName
