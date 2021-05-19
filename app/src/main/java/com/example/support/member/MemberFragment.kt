@@ -2,9 +2,9 @@
 package com.example.support.member
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,15 +13,17 @@ import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
+import com.example.support.team.MemberViewAdapter
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.member_fragment.view.*
+import java.lang.Exception
 
 class MemberFragment : Fragment() {
     private lateinit var binding: MemberFragmentBinding
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         val application = requireNotNull(activity).application
         binding = MemberFragmentBinding.inflate(inflater)
@@ -33,12 +35,12 @@ class MemberFragment : Fragment() {
         ).get(MemberViewModel::class.java)
         binding.viewModel = viewModel
 
-        viewModel.isAvailable.observe(this, Observer {
+        viewModel.isAvailable.observe(viewLifecycleOwner, Observer {
             if(it){
-                binding.availableImage?.setImageResource(R.drawable.ic_baseline_available)
+                binding.availableImage.setImageResource(R.drawable.ic_baseline_available)
             }
             else{
-                binding.availableImage?.setImageResource(R.drawable.ic_baseline_block)
+                binding.availableImage.setImageResource(R.drawable.ic_baseline_block)
             }
         })
 
@@ -46,9 +48,26 @@ class MemberFragment : Fragment() {
         return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        val toolbar = this.binding.memberAppbarLayout.member_toolbar
-        toolbar.setNavigationOnClickListener { view.findNavController().navigateUp() }
-        super.onViewCreated(view, savedInstanceState)
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.member_menu, menu)
+        val backItem  = menu.findItem(R.id.back_action)
+
+        backItem.setOnMenuItemClickListener {
+            this.findNavController().navigateUp()
+        }
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.back_action){
+            false
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

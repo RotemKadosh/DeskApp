@@ -1,16 +1,21 @@
 package com.example.support.team
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.support.databinding.TeamMemberViewBinding
 import com.example.support.networking.TeamMember
+import java.util.*
 
 class MemberViewAdapter(private val onClickListener: OnClickListener) :
-    ListAdapter<TeamMember, MemberViewAdapter.TeamMemberViewHolder>(DiffCallback){
+    ListAdapter<TeamMember, MemberViewAdapter.TeamMemberViewHolder>(DiffCallback), Filterable {
 
+    lateinit var fullList : List<TeamMember>
 
     class TeamMemberViewHolder(private var binding: TeamMemberViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -50,5 +55,36 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
     class OnClickListener(val clickListener: (teamMember: TeamMember) -> Unit) {
         fun onClick(teamMember: TeamMember) = clickListener(teamMember)
     }
+
+    override fun getFilter(): Filter {
+        return object : Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                Log.i("filter", "perform filtering called adapter")
+                val query = constraint.toString().toLowerCase(Locale.ROOT).trim()
+                var filteredList = mutableListOf<TeamMember>()
+                if(query.isNotBlank()){
+                    fullList?.let {
+                        for(item in it){
+                            if(item.firstName.toLowerCase().contains(query) || item.lastName.toLowerCase().contains(query)){
+                                filteredList.add(item)
+                            }
+                        }
+                    }
+                }
+                else{
+                    filteredList = fullList as MutableList<TeamMember>
+                }
+                val filterResult = FilterResults()
+                filterResult.values = filteredList
+                return filterResult
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                submitList(results?.values as MutableList<TeamMember>)
+            }
+
+        }
+    }
+
 }
 

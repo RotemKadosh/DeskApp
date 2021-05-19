@@ -54,6 +54,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:menu="@menu/team_menu"
             app:title="@string/app_name"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
             app:titleTextColor="@color/white" />
 
 
