@@ -17,23 +17,23 @@
 
 package com.example.support
 
-import android.view.View
 import android.widget.ImageView
-import android.widget.ListAdapter
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.example.support.networking.TeamMember
-import com.example.support.team.TeamMemberApiStatus
 import com.example.support.team.MemberViewAdapter
 
 
 @BindingAdapter("listData")
 fun <T>bindRecyclerView(recyclerView: RecyclerView, data: List<TeamMember>?) {
     val adapter = recyclerView.adapter as MemberViewAdapter
-    adapter.submitList(data)
+    if (data != null) {
+        adapter.fullList = data
+        adapter.submitList(data)
+    }
 }
 
 
@@ -50,19 +50,3 @@ fun bindImage(imgView: ImageView, imgUrl: String?) {
     }
 }
 
-//@BindingAdapter("teamMemberApiStatus")
-//fun bindStatus(statusImageView: ImageView, status: TeamMemberApiStatus?) {
-//    when (status) {
-//        TeamMemberApiStatus.LOADING -> {
-//            statusImageView.visibility = View.VISIBLE
-//            statusImageView.setImageResource(R.drawable.loading_animation)
-//        }
-//        TeamMemberApiStatus.ERROR -> {
-//            statusImageView.visibility = View.VISIBLE
-//            statusImageView.setImageResource(R.drawable.ic_connection_error)
-//        }
-//        TeamMemberApiStatus.DONE -> {
-//            statusImageView.visibility = View.GONE
-//        }
-//    }
-//}
