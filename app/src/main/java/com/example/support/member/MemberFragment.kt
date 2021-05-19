@@ -28,16 +28,6 @@ class MemberFragment : Fragment() {
             this, viewModelFactory
         ).get(MemberViewModel::class.java)
         binding.viewModel = viewModel
-
-        viewModel.isAvailable.observe(viewLifecycleOwner, Observer {
-            if(it){
-                binding.availableImage.setImageResource(R.drawable.ic_baseline_available)
-            }
-            else{
-                binding.availableImage.setImageResource(R.drawable.ic_baseline_block)
-            }
-        })
-
         Picasso.with(application).load(viewModel.selectedProperty.value?.imgSrcUrl).into(this.binding.mainPhotoImage)
         return binding.root
     }

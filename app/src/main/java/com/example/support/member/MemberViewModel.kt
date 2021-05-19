@@ -10,23 +10,11 @@ import com.example.support.networking.TeamMember
 
 
 class MemberViewModel( memberProperty: TeamMember, app: Application) : AndroidViewModel(app) {
-    fun backPressedComplete() {
-        _backPressed.value = false
-    }
-    fun onBackPressed(){
-        _backPressed.value = true
-    }
-    // The internal MutableLiveData for the selected property
+
+
     private val _selectedProperty = MutableLiveData<TeamMember>()
-    // The external LiveData for the SelectedProperty
     val selectedProperty: LiveData<TeamMember>
         get() = _selectedProperty
-
-
-    private val _backPressed = MutableLiveData<Boolean>()
-
-    val backPressed: LiveData<Boolean>
-        get() = _backPressed
 
     private val _isAvailable = MutableLiveData<Boolean>()
 
