@@ -26,6 +26,10 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
         }
     }
 
+    override fun getItemCount(): Int {
+        return this.currentList.count()
+    }
+
     companion object DiffCallback : DiffUtil.ItemCallback<TeamMember>() {
         override fun areItemsTheSame(oldItem: TeamMember, newItem: TeamMember): Boolean {
             return oldItem.email == newItem.email

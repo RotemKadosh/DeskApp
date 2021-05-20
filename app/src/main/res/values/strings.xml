@@ -8,4 +8,7 @@
     <string name="search">Search</string>
     <string name="avatar_content">avatar</string>
     <string name="available_content">available</string>
+    <string name="refresh">Refresh</string>
+    <string name="no_results_found">No result(s) found</string>
+    <string name="todo">TODO</string>
 </resources>

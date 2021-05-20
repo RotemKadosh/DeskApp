@@ -40,6 +40,21 @@
             app:layout_constraintBottom_toBottomOf="@id/team_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/todo" />
+        <TextView
+            android:id="@+id/results_not_found"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:text="@string/no_results_found"
+            android:textColor="@color/black"
+            android:gravity="center"
+            android:ellipsize="end"
+            android:visibility="invisible"
+            android:textSize="@dimen/member_fragment_name_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
