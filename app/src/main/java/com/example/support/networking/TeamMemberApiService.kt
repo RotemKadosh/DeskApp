@@ -25,11 +25,6 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
 
-enum class TeamMemberApiFilter(val value: Boolean) {
-    SHOW_AVAILABLE(true),
-    SHOW_BLOCK(false),
-    SHOW_ALL(true || false) }
-
 private const val BASE_URL = "https://d77b22e5-fd96-4745-8243-b5aab6203419.mock.pstmn.io/"
 
 

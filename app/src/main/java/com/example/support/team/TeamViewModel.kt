@@ -47,6 +47,7 @@ class TeamViewModel : ViewModel() {
                 _members.value = list
                 _status.value = TeamMemberApiStatus(false, R.drawable.loading_animation)
             } catch (e: Exception) {
+                Log.e("get", e.message.toString())
                 _status.value = TeamMemberApiStatus(true, R.drawable.ic_connection_error)
                 _members.value = ArrayList()
             }
