@@ -27,12 +27,9 @@ class MemberViewModel( memberProperty: TeamMember, app: Application) : AndroidVi
         }
     }
 
-    fun displayFullName(): String? {
-        var fullName: String? = _selectedProperty.value?.firstName + " " +selectedProperty.value?.lastName
-        return fullName
+    val displayFullName = Transformations.map(selectedProperty) {
+        return@map _selectedProperty.value?.firstName + " " + selectedProperty.value?.lastName
     }
-
-
-
+    
 }
 
