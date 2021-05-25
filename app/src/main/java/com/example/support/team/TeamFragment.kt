@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.databinding.TeamFragmentBinding
+import kotlinx.coroutines.*
 
 
 class TeamFragment: Fragment() {
@@ -57,15 +58,21 @@ class TeamFragment: Fragment() {
         val options: Int = searchView.imeOptions
         searchView.imeOptions = options or EditorInfo.IME_FLAG_NO_EXTRACT_UI
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            private var queryTextListenerJob: Job? = null
+
             override fun onQueryTextChange(newText: String?): Boolean {
-                viewAdapter.filter.filter(newText)
+                queryTextListenerJob?.cancel()
+                queryTextListenerJob = CoroutineScope(Dispatchers.Main).launch{
+                    delay(500)
+                    viewAdapter.filter.filter(newText)
+                }
+
                 if(newText?.isEmpty() == true){
                     viewModel.searchText = null
                 }
                 else{
                     viewModel.searchText = newText
                 }
-
                 return true
             }
 
