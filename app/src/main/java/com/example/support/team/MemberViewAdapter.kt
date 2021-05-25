@@ -15,7 +15,7 @@ import java.util.*
 class MemberViewAdapter(private val onClickListener: OnClickListener) :
     ListAdapter<TeamMember, MemberViewAdapter.TeamMemberViewHolder>(DiffCallback), Filterable {
 
-    lateinit var fullList : List<TeamMember>
+    private lateinit var fullList : List<TeamMember>
 
     class TeamMemberViewHolder(private var binding: TeamMemberViewBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -56,6 +56,16 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
         fun onClick(teamMember: TeamMember) = clickListener(teamMember)
     }
 
+    override fun submitList(list: MutableList<TeamMember>?) {
+        if (list != null) {
+            fullList = list
+        }
+        super.submitList(list)
+    }
+
+    private fun updateFilteredList(list: MutableList<TeamMember>?) {
+        super.submitList(list)
+    }
     override fun getFilter(): Filter {
         return object : Filter(){
             override fun performFiltering(constraint: CharSequence?): FilterResults {
@@ -80,7 +90,7 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                submitList(results?.values as MutableList<TeamMember>)
+                updateFilteredList(results?.values as MutableList<TeamMember>)
             }
 
         }

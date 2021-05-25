@@ -19,20 +19,21 @@ class TeamFragment: Fragment() {
         ViewModelProvider(this).get(TeamViewModel::class.java)
     }
 
+    private val viewAdapter = MemberViewAdapter(MemberViewAdapter.OnClickListener {
+        viewModel.displayMemberDetails(it)
+    })
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        Log.d("lifecycle" , "fragment on createview")
         binding = TeamFragmentBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
 
         binding.viewModel = viewModel
 
-        binding.teamList.adapter = MemberViewAdapter(MemberViewAdapter.OnClickListener {
-            viewModel.displayMemberDetails(it)
-        })
+        binding.teamList.adapter = viewAdapter
 
         viewModel.navigateToSelectedMember.observe(viewLifecycleOwner, {
             it?.let {
@@ -50,7 +51,6 @@ class TeamFragment: Fragment() {
 
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        Log.d("lifecycle" , "fragment on createoptionMenu")
         inflater.inflate(R.menu.team_menu, menu)
         val itemSearch = menu.findItem(R.id.searc_action)
         val searchView : SearchView = itemSearch.actionView as SearchView
@@ -58,8 +58,7 @@ class TeamFragment: Fragment() {
         searchView.imeOptions = options or EditorInfo.IME_FLAG_NO_EXTRACT_UI
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
-                val adapter = (binding.teamList.adapter as MemberViewAdapter)
-                adapter.filter.filter(newText)
+                viewAdapter.filter.filter(newText)
                 if(newText?.isEmpty() == true){
                     viewModel.searchText = null
                 }

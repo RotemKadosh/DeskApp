@@ -28,12 +28,9 @@ import com.example.support.team.MemberViewAdapter
 
 
 @BindingAdapter("listData")
-fun <T>bindRecyclerView(recyclerView: RecyclerView, data: List<TeamMember>?) {
+fun bindRecyclerView(recyclerView: RecyclerView, data: List<TeamMember>?) {
     val adapter = recyclerView.adapter as MemberViewAdapter
-    if (data != null) {
-        adapter.fullList = data
-        adapter.submitList(data)
-    }
+    adapter.submitList(data as MutableList<TeamMember>?)
 }
 
 
