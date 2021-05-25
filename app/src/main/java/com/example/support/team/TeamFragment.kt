@@ -1,7 +1,6 @@
 package com.example.support.team
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
@@ -13,16 +12,21 @@ import com.example.support.databinding.TeamFragmentBinding
 import kotlinx.coroutines.*
 
 
-class TeamFragment: Fragment() {
+class TeamFragment : Fragment() {
 
-    lateinit var binding : TeamFragmentBinding
+    lateinit var binding: TeamFragmentBinding
     private val viewModel: TeamViewModel by lazy {
         ViewModelProvider(this).get(TeamViewModel::class.java)
     }
-
     private val viewAdapter = MemberViewAdapter(MemberViewAdapter.OnClickListener {
         viewModel.displayMemberDetails(it)
     })
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,16 +49,37 @@ class TeamFragment: Fragment() {
         return binding.root
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
-    }
-
-
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.team_menu, menu)
         val itemSearch = menu.findItem(R.id.searc_action)
-        val searchView : SearchView = itemSearch.actionView as SearchView
+        val searchView: SearchView = itemSearch.actionView as SearchView
+        setQueryTextListener(searchView)
+        restoreSearchFocusIfExist(searchView)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.searc_action) {
+            return false
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun restoreSearchFocusIfExist(searchView: SearchView) {
+        if (viewModel.searchText != null) {
+            searchView.requestFocus()
+            searchView.setQuery(viewModel.searchText, true)
+            searchView.isIconified = false
+        }
+    }
+     private fun updateSearchText(newText : String?){
+         if (newText?.isEmpty() == true) {
+             viewModel.searchText = null
+         } else {
+             viewModel.searchText = newText
+         }
+     }
+    private fun setQueryTextListener(searchView: SearchView) {
         val options: Int = searchView.imeOptions
         searchView.imeOptions = options or EditorInfo.IME_FLAG_NO_EXTRACT_UI
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
@@ -62,17 +87,11 @@ class TeamFragment: Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 queryTextListenerJob?.cancel()
-                queryTextListenerJob = CoroutineScope(Dispatchers.Main).launch{
+                queryTextListenerJob = CoroutineScope(Dispatchers.Main).launch {
                     delay(500)
                     viewAdapter.filter.filter(newText)
                 }
-
-                if(newText?.isEmpty() == true){
-                    viewModel.searchText = null
-                }
-                else{
-                    viewModel.searchText = newText
-                }
+                updateSearchText(newText)
                 return true
             }
 
@@ -80,21 +99,7 @@ class TeamFragment: Fragment() {
                 return false
             }
         })
-        if (viewModel.searchText != null){
-            searchView.requestFocus()
-            searchView.setQuery(viewModel.searchText, true )
-            searchView.isIconified = false
-        }
-        super.onCreateOptionsMenu(menu, inflater)
     }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.searc_action){
-            return false
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
 
 }
 
