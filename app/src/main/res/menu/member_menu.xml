@@ -6,4 +6,8 @@
         app:showAsAction="ifRoom|collapseActionView"
         app:actionViewClass="androidx.appcompat.widget.AppCompatImageView"
         android:title="@string/back" />
+    <item android:id="@+id/refresh_action"
+        android:icon="@drawable/ic_baseline_refresh"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/refresh"/>
 </menu>

@@ -7,4 +7,9 @@
         android:title="@string/search"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom" />
+    <item android:id="@+id/refresh_action"
+        android:icon="@drawable/ic_baseline_refresh"
+        android:src="@drawable/ic_baseline_refresh"
+        app:showAsAction="always"
+        android:title="@string/refresh"/>
 </menu>
