@@ -7,8 +7,8 @@
     <data>
 
         <variable
-            name="viewModel"
-            type="com.example.support.team.TeamViewModel" />
+            name="refreshViewModel"
+            type="com.example.support.RefreshViewModel" />
 
         <import type="android.view.View" />
     </data>
@@ -28,15 +28,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:listData="@{viewModel.members}"
+            app:listData="@{refreshViewModel.members}"
             tools:listitem="@layout/team_member_view" />
 
         <ImageView
             android:id="@+id/status_image"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:visibility="@{viewModel.status.visible ? View.VISIBLE : View.GONE}"
-            app:imageResource="@{viewModel.status.imageResource}"
+            android:visibility="@{refreshViewModel.status.visible ? View.VISIBLE : View.GONE}"
+            app:imageResource="@{refreshViewModel.status.imageResource}"
             app:layout_constraintBottom_toBottomOf="@id/team_list"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

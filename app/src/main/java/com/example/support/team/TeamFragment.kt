@@ -5,9 +5,11 @@ import android.view.*
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
+import com.example.support.RefreshViewModel
 import com.example.support.databinding.TeamFragmentBinding
 import kotlinx.coroutines.*
 
@@ -18,6 +20,8 @@ class TeamFragment : Fragment() {
     private val viewModel: TeamViewModel by lazy {
         ViewModelProvider(this).get(TeamViewModel::class.java)
     }
+    private val refreshViewModel: RefreshViewModel by activityViewModels()
+
     private val viewAdapter = MemberViewAdapter(MemberViewAdapter.OnClickListener {
         viewModel.displayMemberDetails(it)
     })
@@ -35,9 +39,7 @@ class TeamFragment : Fragment() {
         binding = TeamFragmentBinding.inflate(inflater)
 
         binding.lifecycleOwner = this
-
-        binding.viewModel = viewModel
-
+        binding.refreshViewModel = refreshViewModel
         binding.teamList.adapter = viewAdapter
 
         viewModel.navigateToSelectedMember.observe(viewLifecycleOwner, {
@@ -46,6 +48,7 @@ class TeamFragment : Fragment() {
                 viewModel.displayMemberDetailsComplete()
             }
         })
+        refreshViewModel.refreshData()
         return binding.root
     }
 
@@ -63,7 +66,8 @@ class TeamFragment : Fragment() {
             return false
         }
         else if(item.itemId == R.id.refresh_action){
-            //Todo - handle refresh action logic here
+            refreshViewModel.refreshData()
+            viewAdapter.notifyDataSetChanged()
             return true
         }
         return super.onOptionsItemSelected(item)

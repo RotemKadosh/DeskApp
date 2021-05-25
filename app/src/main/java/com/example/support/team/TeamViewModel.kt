@@ -14,43 +14,14 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.launch
 
-data class TeamMemberApiStatus(var isVisible: Boolean, @DrawableRes var imageResource: Int)
-
 class TeamViewModel : ViewModel() {
 
     var searchText: String? = null
-
-    private val _status = MutableLiveData<TeamMemberApiStatus>()
-    val status: LiveData<TeamMemberApiStatus>
-        get() = _status
-
-    private val _members = MutableLiveData<List<TeamMember>>()
-    val members: LiveData<List<TeamMember>>
-        get() = _members
 
     private val _navigateToSelectedMember= MutableLiveData<TeamMember?>()
     val navigateToSelectedMember: LiveData<TeamMember?>
         get() = _navigateToSelectedMember
 
-
-    init {
-        getTeamMembers()
-    }
-
-    private fun getTeamMembers() {
-        viewModelScope.launch {
-            _status.value = TeamMemberApiStatus(true, R.drawable.loading_animation)
-            try {
-                val list : MutableList<TeamMember> = MembersApi.retrofitService.getProperties() as MutableList<TeamMember>
-                list.sort()
-                _members.value = list
-                _status.value = TeamMemberApiStatus(false, R.drawable.loading_animation)
-            } catch (e: Exception) {
-                _status.value = TeamMemberApiStatus(true, R.drawable.ic_connection_error)
-                _members.value = ArrayList()
-            }
-        }
-    }
 
     fun displayMemberDetails(member: TeamMember) {
         _navigateToSelectedMember.value = member

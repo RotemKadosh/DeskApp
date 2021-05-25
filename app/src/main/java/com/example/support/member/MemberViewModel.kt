@@ -10,6 +10,12 @@ import com.example.support.networking.TeamMember
 
 
 class MemberViewModel( memberProperty: TeamMember, app: Application) : AndroidViewModel(app) {
+    fun updateSelectedProperty(members: List<TeamMember>?) {
+        val newData  = members?.find{it.email == selectedProperty.value?.email}
+        newData?.let{
+            _selectedProperty.value = it
+        }
+    }
 
 
     private val _selectedProperty = MutableLiveData<TeamMember>()
