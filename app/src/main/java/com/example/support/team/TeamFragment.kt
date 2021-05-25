@@ -62,7 +62,7 @@ class TeamFragment: Fragment() {
 
             override fun onQueryTextChange(newText: String?): Boolean {
                 queryTextListenerJob?.cancel()
-                queryTextListenerJob = CoroutineScope(Dispatchers.Main).launch{
+                queryTextListenerJob = CoroutineScope(Dispatchers.Default).launch{
                     delay(500)
                     viewAdapter.filter.filter(newText)
                 }
