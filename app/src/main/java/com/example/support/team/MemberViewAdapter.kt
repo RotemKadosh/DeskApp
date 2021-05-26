@@ -90,7 +90,8 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
             }
 
             override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
-                updateFilteredList(results?.values as MutableList<TeamMember>)
+                this@MemberViewAdapter.submitList(results?.values as MutableList<TeamMember>)
+
             }
 
         }
