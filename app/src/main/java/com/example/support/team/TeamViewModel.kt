@@ -41,7 +41,9 @@ class TeamViewModel : ViewModel() {
         viewModelScope.launch {
             _status.value = TeamMemberApiStatus(true, R.drawable.loading_animation)
             try {
-                _members.value = MembersApi.retrofitService.getProperties()
+                val list : MutableList<TeamMember> = MembersApi.retrofitService.getProperties() as MutableList<TeamMember>
+                list.sort()
+                _members.value = list
                 _status.value = TeamMemberApiStatus(false, R.drawable.loading_animation)
             } catch (e: Exception) {
                 _status.value = TeamMemberApiStatus(true, R.drawable.ic_connection_error)
