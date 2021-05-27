@@ -7,6 +7,7 @@ import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.databinding.TeamFragmentBinding
@@ -61,9 +62,10 @@ class TeamFragment: Fragment() {
             private var queryTextListenerJob: Job? = null
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                val delayTime : Long = 500
                 queryTextListenerJob?.cancel()
-                queryTextListenerJob = CoroutineScope(Dispatchers.Main).launch{
-                    delay(500)
+                queryTextListenerJob = lifecycleScope.launch{
+                    delay(delayTime)
                     viewAdapter.filter.filter(newText)
                 }
 
