@@ -63,6 +63,10 @@ class TeamFragment : Fragment() {
         if (item.itemId == R.id.searc_action) {
             return false
         }
+        else if(item.itemId == R.id.refresh_action){
+            //Todo - handle refresh action logic here
+            return true
+        }
         return super.onOptionsItemSelected(item)
     }
 

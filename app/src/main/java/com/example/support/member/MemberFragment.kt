@@ -49,9 +49,14 @@ class MemberFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.back_action){
-            false
+         if (item.itemId == R.id.back_action){
+            return false
         }
+        else if(item.itemId == R.id.refresh_action){
+            //Todo - handle refresh action logic here
+            return true
+         }
+
         return super.onOptionsItemSelected(item)
     }
 }
