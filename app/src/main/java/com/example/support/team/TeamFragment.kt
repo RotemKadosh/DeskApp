@@ -7,6 +7,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
@@ -82,13 +83,7 @@ class TeamFragment : Fragment() {
             searchView.isIconified = false
         }
     }
-     private fun updateSearchText(newText : String?){
-         if (newText?.isEmpty() == true) {
-             viewModel.searchText = null
-         } else {
-             viewModel.searchText = newText
-         }
-     }
+
     private fun setQueryTextListener(searchView: SearchView) {
         val options: Int = searchView.imeOptions
         searchView.imeOptions = options or EditorInfo.IME_FLAG_NO_EXTRACT_UI
@@ -96,12 +91,13 @@ class TeamFragment : Fragment() {
             private var queryTextListenerJob: Job? = null
 
             override fun onQueryTextChange(newText: String?): Boolean {
+                val delayTime : Long = 500
                 queryTextListenerJob?.cancel()
-                queryTextListenerJob = CoroutineScope(Dispatchers.Main).launch {
-                    delay(500)
+                queryTextListenerJob = lifecycleScope.launch{
+                    delay(delayTime)
                     viewAdapter.filter.filter(newText)
                 }
-                updateSearchText(newText)
+                viewModel.updateSearchText(newText)
                 return true
             }
 

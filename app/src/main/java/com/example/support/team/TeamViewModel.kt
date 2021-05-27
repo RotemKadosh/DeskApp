@@ -31,8 +31,14 @@ class TeamViewModel : ViewModel() {
         _navigateToSelectedMember.value = null
     }
 
+    fun updateSearchText(newText: String?) {
+        if (newText?.isEmpty() == true) {
+            searchText = null
+        } else {
+            searchText = newText
+        }
 
-
+    }
 
 
 }
