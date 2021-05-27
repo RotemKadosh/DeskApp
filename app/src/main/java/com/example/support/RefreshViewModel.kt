@@ -37,9 +37,8 @@ class RefreshViewModel :ViewModel(){
         }
     }
 
-    fun refreshData()  : List<TeamMember>? {
-        getTeamMembers()
-        return _members.value
+    fun refreshData(){
+         getTeamMembers()
     }
 
 }

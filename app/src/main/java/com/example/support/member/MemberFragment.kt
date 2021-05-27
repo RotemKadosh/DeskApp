@@ -28,9 +28,10 @@ class MemberFragment : Fragment() {
         binding.lifecycleOwner = this
         val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
         val viewModelFactory = MemberViewModelFactory(teamMember, application)
-        viewModel = ViewModelProvider(
-            this, viewModelFactory
-        ).get(MemberViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
+        refreshViewModel.members.observe(viewLifecycleOwner, {
+            viewModel.updateSelectedProperty(it)
+        })
         binding.viewModel = viewModel
         return binding.root
     }
@@ -56,7 +57,7 @@ class MemberFragment : Fragment() {
             return false
         }
         else if(item.itemId == R.id.refresh_action){
-            viewModel.updateSelectedProperty(refreshViewModel.refreshData())
+            refreshViewModel.refreshData()
             return true
          }
 

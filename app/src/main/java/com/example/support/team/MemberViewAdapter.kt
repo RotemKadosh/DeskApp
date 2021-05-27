@@ -32,7 +32,10 @@ class MemberViewAdapter(private val onClickListener: OnClickListener) :
         }
 
         override fun areContentsTheSame(oldItem: TeamMember, newItem: TeamMember): Boolean {
-            return (oldItem.available == newItem.available && oldItem.imgSrcUrl == newItem.imgSrcUrl)
+            return (oldItem.available == newItem.available &&
+                    oldItem.imgSrcUrl == newItem.imgSrcUrl &&
+                    oldItem.firstName == newItem.firstName &&
+                    oldItem.lastName == newItem.lastName )
         }
     }
 

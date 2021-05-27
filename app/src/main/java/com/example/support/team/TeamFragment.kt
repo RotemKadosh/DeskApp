@@ -48,6 +48,9 @@ class TeamFragment : Fragment() {
                 viewModel.displayMemberDetailsComplete()
             }
         })
+        refreshViewModel.members.observe(viewLifecycleOwner,{
+            viewAdapter.submitList(it.toMutableList())
+        })
         refreshViewModel.refreshData()
         return binding.root
     }
@@ -67,7 +70,6 @@ class TeamFragment : Fragment() {
         }
         else if(item.itemId == R.id.refresh_action){
             refreshViewModel.refreshData()
-            viewAdapter.notifyDataSetChanged()
             return true
         }
         return super.onOptionsItemSelected(item)
