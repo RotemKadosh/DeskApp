@@ -13,14 +13,7 @@ data class TeamMember(
     @Json(name = "phone") val phone: String = "0548166800",
     @Json(name = "email") val email: String = "rotemkadosh27@gmail.com",
     @Json(name = "image") var _imgSrcUrl: String?
-) : Parcelable, Comparable<TeamMember> {
-    override fun compareTo(other: TeamMember): Int {
-        return if (this.available && !other.available) {
-            -1;
-        } else {
-            1
-        }
-    }
+) : Parcelable {
 
     var imgSrcUrl: String = ""
         get() {

@@ -27,7 +27,7 @@ class RefreshViewModel :ViewModel(){
             _status.value = TeamMemberApiStatus(true, R.drawable.loading_animation)
             try {
                 val list : MutableList<TeamMember> = MembersApi.retrofitService.getProperties() as MutableList<TeamMember>
-                list.sort()
+                list.sortByDescending { it.available }
                 _members.value = list
                 _status.value = TeamMemberApiStatus(false, R.drawable.loading_animation)
             } catch (e: Exception) {
