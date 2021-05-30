@@ -5,14 +5,12 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
 import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
-import com.squareup.picasso.Picasso
 
 class MemberFragment : Fragment() {
     private lateinit var binding: MemberFragmentBinding
@@ -23,11 +21,11 @@ class MemberFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        val application = requireNotNull(activity).application
+       
         binding = MemberFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
         val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
-        val viewModelFactory = MemberViewModelFactory(teamMember, application)
+        val viewModelFactory = MemberViewModelFactory(teamMember)
         viewModel = ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
