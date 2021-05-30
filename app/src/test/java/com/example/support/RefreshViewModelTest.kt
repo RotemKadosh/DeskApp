@@ -34,9 +34,9 @@ class RefreshViewModelTest {
     }
     @Test
     fun getMembersItemTest() {
-        val member = viewModel.members.getOrAwaitValue()[0]
+        val member = viewModel.members.getOrAwaitValue().find { it.lastName.contains("Parker") }
         Assert.assertNotNull(member)
-        Assert.assertEquals(member.firstName, "Peter")
+        Assert.assertEquals(member?.firstName, "Peter")
     }
 
         /*TODO - status test
