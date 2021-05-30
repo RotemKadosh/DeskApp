@@ -16,18 +16,16 @@
 
 package com.example.support.member
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.support.networking.TeamMember
 
 class MemberViewModelFactory(
-        private val memberProperty: TeamMember,
-        private val application: Application) : ViewModelProvider.Factory {
+        private val memberProperty: TeamMember) : ViewModelProvider.Factory {
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MemberViewModel::class.java)) {
-            return MemberViewModel(memberProperty, application) as T
+            return MemberViewModel(memberProperty) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }
