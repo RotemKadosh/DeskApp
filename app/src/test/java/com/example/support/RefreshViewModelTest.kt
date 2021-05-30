@@ -39,5 +39,12 @@ class RefreshViewModelTest {
         Assert.assertEquals(member.firstName, "Peter")
     }
 
+        /*TODO - status test
+      fun statusTest(){
+
+          mock server success -> assert status == success
+          mock server failure -> assert status == failure
+      }
+       */
 
 }
