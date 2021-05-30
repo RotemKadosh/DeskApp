@@ -30,7 +30,7 @@ class TeamViewModelTest{
         viewModel.updateSearchText("")
         var text = viewModel.searchText
         Assert.assertNull(text)
-        
+
         viewModel.updateSearchText("rotem")
         text = viewModel.searchText
         Assert.assertEquals(text, "rotem")
