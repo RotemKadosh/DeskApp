@@ -1,7 +1,8 @@
-package com.example.support
+package com.example.support.member
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.example.support.member.MemberViewModel
+import com.example.support.R
+import com.example.support.getOrAwaitValue
 import com.example.support.networking.TeamMember
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Assert
