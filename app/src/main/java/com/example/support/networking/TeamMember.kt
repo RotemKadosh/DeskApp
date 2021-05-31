@@ -1,6 +1,7 @@
 package com.example.support.networking
 
 import android.os.Parcelable
+import com.google.android.gms.maps.model.LatLng
 import com.squareup.moshi.Json
 import kotlinx.android.parcel.Parcelize
 
@@ -12,7 +13,8 @@ data class TeamMember(
     @Json(name = "available") val available: Boolean = false,
     @Json(name = "phone") val phone: String = "0548166800",
     @Json(name = "email") val email: String = "rotemkadosh27@gmail.com",
-    @Json(name = "image") var _imgSrcUrl: String?
+    @Json(name = "image") var _imgSrcUrl: String?,
+    @Json(name = "location") var location : LatLng = LatLng(34.1, 33.2)
 ) : Parcelable {
 
     var imgSrcUrl: String = ""

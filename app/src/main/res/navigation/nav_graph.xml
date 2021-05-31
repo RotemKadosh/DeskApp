@@ -25,6 +25,18 @@
             android:name="selectedProperty"
             app:argType="com.example.support.networking.TeamMember"
             />
+        <action
+            android:id="@+id/action_showLocation"
+            app:destination="@id/map_fragment"/>
     </fragment>
 
+    <fragment
+        android:id="@+id/map_fragment"
+        android:name="com.example.support.map.MapFragment"
+        android:label="map_fragment"
+        tools:layout="@layout/map_fragment">
+        <argument
+            android:name="location"
+            app:argType="com.google.android.gms.maps.model.LatLng" />
+    </fragment>
 </navigation>
