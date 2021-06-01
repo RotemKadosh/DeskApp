@@ -1,19 +1,20 @@
 package com.example.support.map
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.findNavController
 import com.example.support.R
+import com.example.support.RefreshViewModel
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 
 class MapFragment : Fragment() {
 
-    //private lateinit var binding: MapFragmentBinding
-    private lateinit var viewModel: MapViewModel
 
+    private lateinit var viewModel: MapViewModel
+    private val refreshViewModel: RefreshViewModel by activityViewModels()
 
     private val callback = OnMapReadyCallback { googleMap ->
         /**
@@ -36,11 +37,11 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-//        binding = MapFragmentBinding.inflate(inflater)
-        viewModel = MapViewModel(MapFragmentArgs.fromBundle(requireArguments()).location)
-//        binding.lifecycleOwner = this
-//        binding.viewModel = viewModel
-//        //
+        viewModel = MapViewModel(MapFragmentArgs.fromBundle(requireArguments()).selectedProperty)
+        refreshViewModel.members.observe(viewLifecycleOwner, {
+            viewModel.updateSelectedProperty(it)
+        })
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.map_fragment, container, false)
     }
 
@@ -48,5 +49,26 @@ class MapFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.back_refresh_menu, menu)
+        val backItem = menu.findItem(R.id.back_action)
+
+        backItem.setOnMenuItemClickListener {
+            this.findNavController().navigateUp()
+        }
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        if (item.itemId == R.id.back_action) {
+            return false
+        } else if (item.itemId == R.id.refresh_action) {
+            refreshViewModel.refreshData()
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 }

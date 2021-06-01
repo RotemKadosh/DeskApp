@@ -51,7 +51,7 @@ class MemberFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.member_menu, menu)
+        inflater.inflate(R.menu.back_refresh_menu, menu)
         val backItem = menu.findItem(R.id.back_action)
 
         backItem.setOnMenuItemClickListener {
