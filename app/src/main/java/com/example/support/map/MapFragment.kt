@@ -1,7 +1,6 @@
 package com.example.support.map
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -47,12 +46,11 @@ class MapFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.back_refresh_menu, menu)
+        inflater.inflate(R.menu.refresh_menu, menu)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        Log.d("back", item.itemId.toString())
         if (item.itemId == android.R.id.home) {
             this.findNavController().navigateUp()
             return true

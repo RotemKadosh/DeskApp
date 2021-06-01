@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
-import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
 
 class MemberFragment : Fragment() {
@@ -55,7 +54,7 @@ class MemberFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         Log.d("back", "member - onCreateOptionsMenu")
-        inflater.inflate(R.menu.back_refresh_menu, menu)
+        inflater.inflate(R.menu.refresh_menu, menu)
         Log.d("back", "member - inflate")
 
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
