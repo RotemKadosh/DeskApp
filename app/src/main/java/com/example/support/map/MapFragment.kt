@@ -5,15 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import com.example.support.R
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
 
-class MapFragment(private val location : LatLng) : Fragment() {
+class MapFragment : Fragment() {
 
+    //private lateinit var binding: MapFragmentBinding
     private lateinit var viewModel: MapViewModel
+
+
     private val callback = OnMapReadyCallback { googleMap ->
         /**
          * Manipulates the map once available.
@@ -24,8 +25,8 @@ class MapFragment(private val location : LatLng) : Fragment() {
          * install it inside the SupportMapFragment. This method will only be triggered once the
          * user has installed Google Play services and returned to the app.
          */
-        val markerOptions = viewModel.getMarkerOption(location)
-        val cameraUpdate = viewModel.getCameraUpdate(location)
+        val markerOptions = viewModel.getMarkerOption()
+        val cameraUpdate = viewModel.getCameraUpdate()
         googleMap.addMarker(markerOptions)
         googleMap.moveCamera(cameraUpdate)
     }
@@ -35,7 +36,11 @@ class MapFragment(private val location : LatLng) : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewModel = ViewModelProvider(this).get(MapViewModel::class.java)
+//        binding = MapFragmentBinding.inflate(inflater)
+        viewModel = MapViewModel(MapFragmentArgs.fromBundle(requireArguments()).location)
+//        binding.lifecycleOwner = this
+//        binding.viewModel = viewModel
+//        //
         return inflater.inflate(R.layout.map_fragment, container, false)
     }
 
