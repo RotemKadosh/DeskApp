@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
+import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
 
 class MemberFragment : Fragment() {
