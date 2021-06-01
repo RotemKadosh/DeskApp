@@ -42,21 +42,21 @@ class MapViewModel(member: TeamMember) : ViewModel() {
 
     fun render(view: View) {
         val availabilityImageResource =
-            when (this@MapViewModel._selectedProperty.value?.available) {
-                true -> R.drawable.ic_baseline_available
-                else -> R.drawable.ic_baseline_block
+            when (_selectedProperty.value?.available) {
+                true -> R.drawable.ic_baseline_available_full
+                else -> R.drawable.ic_baseline_block_full
             }
 
         view.findViewById<ImageView>(R.id.infoWindowImage)
             .setImageResource(availabilityImageResource)
 
         val titleUi = view.findViewById<TextView>(R.id.title)
-        val title = with(this@MapViewModel.selectedProperty) {
+        val title = with(selectedProperty) {
             value?.firstName + " " + value?.lastName
         }
         titleUi.text = title
 
-        val snippet: String? = this@MapViewModel._selectedProperty.value?.email
+        val snippet: String? = _selectedProperty.value?.email
         val snippetUi = view.findViewById<TextView>(R.id.snippet)
         snippetUi.text = snippet
     }
