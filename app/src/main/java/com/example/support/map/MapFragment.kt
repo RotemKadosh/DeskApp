@@ -8,6 +8,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
+import com.example.support.databinding.MapFragmentBinding
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
@@ -17,6 +18,7 @@ class MapFragment : Fragment() {
 
 
     private lateinit var viewModel: MapViewModel
+    private lateinit var binding: MapFragmentBinding
     private val refreshViewModel: RefreshViewModel by activityViewModels()
 
     private val callback = OnMapReadyCallback { googleMap ->
@@ -37,7 +39,9 @@ class MapFragment : Fragment() {
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
         })
-
+        binding = MapFragmentBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        binding.viewModel = viewModel
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return inflater.inflate(R.layout.map_fragment, container, false)

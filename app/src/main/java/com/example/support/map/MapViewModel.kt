@@ -5,6 +5,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Transformations
 import androidx.lifecycle.ViewModel
 import com.example.support.R
 import com.example.support.networking.TeamMember
@@ -35,10 +36,23 @@ class MapViewModel(member: TeamMember) : ViewModel() {
     val selectedProperty: LiveData<TeamMember>
         get() = _selectedProperty
 
+    private val _isMarkerShown = MutableLiveData<Boolean>()
+    val isMarkerShown: LiveData<Boolean>
+        get() = _isMarkerShown
+
     init {
         _selectedProperty.value = member
+        _isMarkerShown.value = true
     }
 
+    val isShowenButtonResource = Transformations.map(isMarkerShown){
+        return@map if(it){
+                R.drawable.ic_baseline_visibility_off
+        }
+        else{
+            R.drawable.ic_baseline_visibility
+        }
+    }
 
     fun render(view: View) {
         val availabilityImageResource =
