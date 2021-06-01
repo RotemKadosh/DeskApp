@@ -8,8 +8,10 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapViewModel(private val location: LatLng) : ViewModel() {
 
+
     fun getCameraUpdate(): CameraUpdate {
-        return CameraUpdateFactory.newLatLng(location)
+        val zoomLevel = 15f
+        return CameraUpdateFactory.newLatLngZoom(location, zoomLevel)
     }
 
     fun getMarkerOption(): MarkerOptions {
