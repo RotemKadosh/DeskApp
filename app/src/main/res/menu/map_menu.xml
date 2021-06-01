@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/refresh_action"
+        android:icon="@drawable/ic_baseline_refresh"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/refresh"/>
+    <item android:id="@+id/show_or_hide_marker_action"
+        android:icon="@drawable/ic_baseline_visibility_off"
+        app:showAsAction="ifRoom|collapseActionView"
+        android:title="@string/show_or_hide"/>
+</menu>

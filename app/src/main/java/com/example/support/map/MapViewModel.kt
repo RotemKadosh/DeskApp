@@ -1,8 +1,6 @@
 package com.example.support.map
 
-import android.view.View
-import android.widget.ImageView
-import android.widget.TextView
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -32,9 +30,27 @@ class MapViewModel(member: TeamMember) : ViewModel() {
         }
     }
 
+
+    val fullName =Transformations.map(selectedProperty){
+        it.firstName + " " + it.lastName
+    }
+    val email = Transformations.map(selectedProperty){
+        it.email
+    }
+
     private val _selectedProperty = MutableLiveData<TeamMember>()
     val selectedProperty: LiveData<TeamMember>
         get() = _selectedProperty
+
+
+    val infoResource = Transformations.map(_selectedProperty){
+        if(it.available){
+            R.drawable.ic_baseline_available_full
+        }
+        else{
+            R.drawable.ic_baseline_block_full
+        }
+    }
 
     private val _isMarkerShown = MutableLiveData<Boolean>()
     val isMarkerShown: LiveData<Boolean>
@@ -43,10 +59,12 @@ class MapViewModel(member: TeamMember) : ViewModel() {
     init {
         _selectedProperty.value = member
         _isMarkerShown.value = true
+
     }
 
-    val isShowenButtonResource = Transformations.map(isMarkerShown){
-        return@map if(it){
+    val isShowenButtonResource = Transformations.map(_isMarkerShown){
+        if(it){
+                Log.d("icon", "Transformations")
                 R.drawable.ic_baseline_visibility_off
         }
         else{
@@ -54,25 +72,10 @@ class MapViewModel(member: TeamMember) : ViewModel() {
         }
     }
 
-    fun render(view: View) {
-        val availabilityImageResource =
-            when (_selectedProperty.value?.available) {
-                true -> R.drawable.ic_baseline_available_full
-                else -> R.drawable.ic_baseline_block_full
-            }
-
-        view.findViewById<ImageView>(R.id.infoWindowImage)
-            .setImageResource(availabilityImageResource)
-
-        val titleUi = view.findViewById<TextView>(R.id.title)
-        val title = with(selectedProperty) {
-            value?.firstName + " " + value?.lastName
-        }
-        titleUi.text = title
-
-        val snippet: String? = _selectedProperty.value?.email
-        val snippetUi = view.findViewById<TextView>(R.id.snippet)
-        snippetUi.text = snippet
+    fun onButtonclicked() {
+        Log.d("icon", "onButtonclicked - before: " + _isMarkerShown.value.toString())
+        _isMarkerShown.postValue(_isMarkerShown.value != true)
+        Log.d("icon", "onButtonclicked - after: " + _isMarkerShown.value.toString())
     }
 }
 
