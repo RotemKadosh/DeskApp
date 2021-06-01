@@ -36,7 +36,8 @@
         android:label="map_fragment"
         tools:layout="@layout/map_fragment">
         <argument
-            android:name="location"
-            app:argType="com.google.android.gms.maps.model.LatLng" />
+            android:name="selectedProperty"
+            app:argType="com.example.support.networking.TeamMember"
+            />
     </fragment>
 </navigation>

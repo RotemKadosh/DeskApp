@@ -15,15 +15,15 @@ class MemberViewModel( memberProperty: TeamMember) : ViewModel() {
     }
 
     fun navigateToMemberLocation() {
-        _locationSelected.value = selectedProperty.value?.location
+        _locationSelected.value = selectedProperty.value
     }
     fun navigateToMemberLocationComplete() {
         _locationSelected.value = null
     }
 
 
-    private val _locationSelected = MutableLiveData<LatLng?>()
-    val locationSelected : LiveData<LatLng?>
+    private val _locationSelected = MutableLiveData<TeamMember?>()
+    val locationSelected : LiveData<TeamMember?>
         get() = _locationSelected
 
     private val _selectedProperty = MutableLiveData<TeamMember>()

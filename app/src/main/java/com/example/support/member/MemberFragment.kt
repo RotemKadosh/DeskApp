@@ -1,14 +1,15 @@
 package com.example.support.member
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
-import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
 
 class MemberFragment : Fragment() {
@@ -20,6 +21,7 @@ class MemberFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        Log.d("back", "member - onCreateView")
         binding = MemberFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
         val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
@@ -51,20 +53,21 @@ class MemberFragment : Fragment() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.member_menu, menu)
-        val backItem = menu.findItem(R.id.back_action)
+        Log.d("back", "member - onCreateOptionsMenu")
+        inflater.inflate(R.menu.refresh_menu, menu)
+        Log.d("back", "member - inflate")
 
-        backItem.setOnMenuItemClickListener {
-            this.findNavController().navigateUp()
-        }
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.back_action) {
-            return false
+        if (item.itemId == android.R.id.home) {
+            this.findNavController().navigateUp()
+            return true
         } else if (item.itemId == R.id.refresh_action) {
             refreshViewModel.refreshData()
+            item.collapseActionView()
             return true
         }
 
