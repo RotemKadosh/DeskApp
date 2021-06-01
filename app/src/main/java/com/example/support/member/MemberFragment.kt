@@ -1,4 +1,3 @@
-
 package com.example.support.member
 
 import android.os.Bundle
@@ -15,13 +14,12 @@ import com.example.support.networking.TeamMember
 class MemberFragment : Fragment() {
     private lateinit var binding: MemberFragmentBinding
     private val refreshViewModel: RefreshViewModel by activityViewModels()
-    private lateinit var viewModel : MemberViewModel
+    private lateinit var viewModel: MemberViewModel
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-
-       
         binding = MemberFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
         val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
@@ -30,6 +28,18 @@ class MemberFragment : Fragment() {
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
         })
+
+        viewModel.locationSelected.observe(viewLifecycleOwner, {
+            it?.let {
+                this.findNavController().navigate(MemberFragmentDirections.actionShowLocation(it))
+                viewModel.navigateToMemberLocationComplete()
+            }
+        })
+
+        binding.locationText?.setOnClickListener {
+            viewModel.navigateToMemberLocation()
+        }
+
         binding.viewModel = viewModel
         return binding.root
     }
@@ -42,7 +52,7 @@ class MemberFragment : Fragment() {
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.member_menu, menu)
-        val backItem  = menu.findItem(R.id.back_action)
+        val backItem = menu.findItem(R.id.back_action)
 
         backItem.setOnMenuItemClickListener {
             this.findNavController().navigateUp()
@@ -51,13 +61,12 @@ class MemberFragment : Fragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-         if (item.itemId == R.id.back_action){
+        if (item.itemId == R.id.back_action) {
             return false
-        }
-        else if(item.itemId == R.id.refresh_action){
+        } else if (item.itemId == R.id.refresh_action) {
             refreshViewModel.refreshData()
             return true
-         }
+        }
 
         return super.onOptionsItemSelected(item)
     }

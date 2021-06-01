@@ -6,13 +6,15 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
-class MapViewModel : ViewModel() {
+class MapViewModel(private val location: LatLng) : ViewModel() {
 
-    fun getCameraUpdate(location: LatLng): CameraUpdate {
-        return CameraUpdateFactory.newLatLng(location)
+
+    fun getCameraUpdate(): CameraUpdate {
+        val zoomLevel = 15f
+        return CameraUpdateFactory.newLatLngZoom(location, zoomLevel)
     }
 
-    fun getMarkerOption(location: LatLng): MarkerOptions {
+    fun getMarkerOption(): MarkerOptions {
         return MarkerOptions().position(location)
     }
 
