@@ -51,9 +51,8 @@ class MapFragment : Fragment() {
     }
 
     private fun onSelectedPropertyChange() {
-        viewModel.selectedProperty.value?.location?.let {
-            marker?.position = it
-        }
+        marker?.remove()
+        marker = map.addMarker(viewModel.getMarkerOption())
         val cameraUpdate = viewModel.getCameraUpdate()
         map.moveCamera(cameraUpdate)
     }

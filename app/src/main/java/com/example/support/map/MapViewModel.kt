@@ -18,7 +18,17 @@ class MapViewModel(member: TeamMember) : ViewModel() {
     }
 
     fun getMarkerOption(): MarkerOptions {
-        return MarkerOptions().position(selectedProperty.value?.location!!)
+        val member = selectedProperty.value
+        var markerOptions : MarkerOptions
+        if(member != null){
+            markerOptions =  MarkerOptions().position(member.location)
+                .title(member.firstName + " " + member.lastName)
+                .snippet(member.phone)
+                //.anchor(0.5f ,0.0f)
+        }else{
+            markerOptions = MarkerOptions()
+        }
+        return markerOptions
     }
 
 
