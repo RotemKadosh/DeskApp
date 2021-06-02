@@ -10,7 +10,10 @@ import com.example.support.R
 import com.example.support.RefreshViewModel
 import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
+<<<<<<< HEAD
 import com.example.support.team.TeamViewModel
+=======
+>>>>>>> UnitTests_memberViewModelFactoryRemoved
 
 class MemberFragment : Fragment() {
     private lateinit var binding: MemberFragmentBinding
@@ -27,8 +30,17 @@ class MemberFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
+<<<<<<< HEAD
         binding = MemberFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
+=======
+       
+        binding = MemberFragmentBinding.inflate(inflater)
+        binding.lifecycleOwner = this
+        val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
+        val viewModelFactory = MemberViewModelFactory(teamMember)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
+>>>>>>> UnitTests_memberViewModelFactoryRemoved
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
         })

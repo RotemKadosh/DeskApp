@@ -1,15 +1,11 @@
 package com.example.support.member
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Transformations
+import androidx.lifecycle.*
 import com.example.support.R
 import com.example.support.networking.TeamMember
 
 
-class MemberViewModel( memberProperty: TeamMember, app: Application) : AndroidViewModel(app) {
+class MemberViewModel( memberProperty: TeamMember) : ViewModel() {
     fun updateSelectedProperty(members: List<TeamMember>?) {
         val newData  = members?.find{it.email == selectedProperty.value?.email}
         newData?.let{
