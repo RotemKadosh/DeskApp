@@ -8,10 +8,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
-import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.Marker
 
 class MapFragment : Fragment() {
 
@@ -24,7 +22,6 @@ class MapFragment : Fragment() {
         val cameraUpdate = viewModel.getCameraUpdate()
         googleMap.addMarker(markerOptions)
         googleMap.moveCamera(cameraUpdate)
-        googleMap.setInfoWindowAdapter(CustomInfoWindowAdapter())
         googleMap.uiSettings.isMapToolbarEnabled = false
     }
 
@@ -66,15 +63,4 @@ class MapFragment : Fragment() {
         return super.onOptionsItemSelected(item)
     }
 
-    inner class CustomInfoWindowAdapter : GoogleMap.InfoWindowAdapter {
-        private var window: View = layoutInflater.inflate(R.layout.info_window, null)
-
-        override fun getInfoWindow(p0: Marker): View? {
-            viewModel.render(window)
-            return window
-        }
-        override fun getInfoContents(p0: Marker): View? {
-            return null
-        }
-    }
 }
