@@ -1,6 +1,5 @@
 package com.example.support.map
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
@@ -21,6 +20,7 @@ class MapViewModel(member: TeamMember) : ViewModel() {
     fun getMarkerOption(): MarkerOptions {
         return MarkerOptions().position(selectedProperty.value?.location!!)
     }
+
 
     fun updateSelectedProperty(members: List<TeamMember>?) {
         val newData = members?.find { it.email == selectedProperty.value?.email }
@@ -44,12 +44,9 @@ class MapViewModel(member: TeamMember) : ViewModel() {
     }
 
     val isShowenButtonResource = Transformations.map(_isMarkerShown){
-        if(it){
-                Log.d("icon", "Transformations")
-                R.drawable.ic_baseline_visibility_off
-        }
-        else{
-            R.drawable.ic_baseline_visibility
+        when(it){
+            true -> R.drawable.ic_baseline_visibility_off
+            else -> R.drawable.ic_baseline_visibility
         }
     }
 

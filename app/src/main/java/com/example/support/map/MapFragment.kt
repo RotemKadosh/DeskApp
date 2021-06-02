@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
+import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.Marker
@@ -18,16 +19,20 @@ class MapFragment : Fragment() {
     private lateinit var viewModel: MapViewModel
     private val refreshViewModel: RefreshViewModel by activityViewModels()
     private var marker : Marker? = null
-
+    private lateinit var map : GoogleMap
     private val callback = OnMapReadyCallback { googleMap ->
+        map = googleMap
         val markerOptions = viewModel.getMarkerOption()
         val cameraUpdate = viewModel.getCameraUpdate()
-        marker = googleMap.addMarker(markerOptions)
-        googleMap.moveCamera(cameraUpdate)
-        googleMap.uiSettings.isMapToolbarEnabled = false
+        marker = map.addMarker(markerOptions)
+        map.moveCamera(cameraUpdate)
+        map.uiSettings.isMapToolbarEnabled = false
         if (viewModel.isMarkerShown.value == false){
             changeMarkerVisibility(marker)
         }
+        viewModel.selectedProperty.observe(viewLifecycleOwner,{
+            onSelectedPropertyChange()
+        })
     }
 
     override fun onCreateView(
@@ -45,10 +50,19 @@ class MapFragment : Fragment() {
         return inflater.inflate(R.layout.map_fragment, container, false)
     }
 
+    private fun onSelectedPropertyChange() {
+        viewModel.selectedProperty.value?.location?.let {
+            marker?.position = it
+        }
+        val cameraUpdate = viewModel.getCameraUpdate()
+        map.moveCamera(cameraUpdate)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as SupportMapFragment?
         mapFragment?.getMapAsync(callback)
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
