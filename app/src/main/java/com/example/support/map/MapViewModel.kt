@@ -13,7 +13,6 @@ import com.google.android.gms.maps.model.MarkerOptions
 
 class MapViewModel(member: TeamMember) : ViewModel() {
 
-
     fun getCameraUpdate(): CameraUpdate {
         val zoomLevel = 15f
         return CameraUpdateFactory.newLatLngZoom(selectedProperty.value?.location!!, zoomLevel)
@@ -30,27 +29,9 @@ class MapViewModel(member: TeamMember) : ViewModel() {
         }
     }
 
-
-    val fullName =Transformations.map(selectedProperty){
-        it.firstName + " " + it.lastName
-    }
-    val email = Transformations.map(selectedProperty){
-        it.email
-    }
-
     private val _selectedProperty = MutableLiveData<TeamMember>()
     val selectedProperty: LiveData<TeamMember>
         get() = _selectedProperty
-
-
-    val infoResource = Transformations.map(_selectedProperty){
-        if(it.available){
-            R.drawable.ic_baseline_available_full
-        }
-        else{
-            R.drawable.ic_baseline_block_full
-        }
-    }
 
     private val _isMarkerShown = MutableLiveData<Boolean>()
     val isMarkerShown: LiveData<Boolean>
@@ -72,10 +53,8 @@ class MapViewModel(member: TeamMember) : ViewModel() {
         }
     }
 
-    fun onButtonclicked() {
-        Log.d("icon", "onButtonclicked - before: " + _isMarkerShown.value.toString())
+    fun onCangeVisibilityClicked() {
         _isMarkerShown.postValue(_isMarkerShown.value != true)
-        Log.d("icon", "onButtonclicked - after: " + _isMarkerShown.value.toString())
     }
 }
 
