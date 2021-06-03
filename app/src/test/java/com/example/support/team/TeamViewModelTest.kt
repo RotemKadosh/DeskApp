@@ -15,7 +15,7 @@ class TeamViewModelTest{
     val testInstantTaskExecutorRule: TestRule = InstantTaskExecutorRule()
 
     private lateinit var viewModel: TeamViewModel
-    var defaultMember = TeamMember("Rotem",
+    private val defaultMember = TeamMember("Rotem",
         "Kadosh",
         false,
         "0548166800",
@@ -42,7 +42,7 @@ class TeamViewModelTest{
         Assert.assertEquals(member, defaultMember)
     }
     @Test
-    fun  displayMemberDetatilsCompleteTest()
+    fun  displayMemberDetailsCompleteTest()
     {
         displayMemberDetailsTest()
         viewModel.displayMemberDetailsComplete()

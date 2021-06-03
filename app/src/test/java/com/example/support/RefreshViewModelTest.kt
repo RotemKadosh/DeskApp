@@ -45,9 +45,9 @@ class RefreshViewModelTest {
         Assert.assertEquals(member.firstName, "Peter")
     }
 
-    lateinit var apiService : TeamMemberApiService
+    private lateinit var apiService : TeamMemberApiService
 
-     var listMock : List<TeamMember>? = null
+     private var listMock : List<TeamMember>? = null
 
     @Test
     fun statusSuccessTest(){

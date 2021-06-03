@@ -23,7 +23,7 @@ class MemberViewModelTest {
 
 
 
-    var defaultMember = TeamMember("Rotem",
+    val defaultMember = TeamMember("Rotem",
     "Kadosh",
         false,
     "0548166800",
@@ -63,10 +63,30 @@ class MemberViewModelTest {
             "")
         )
         viewModel.updateSelectedProperty(newList)
-        val fullName : String = viewModel.displayFullName.getOrAwaitValue()
+        var fullName : String = viewModel.displayFullName.getOrAwaitValue()
         Assert.assertEquals(fullName, "yosi Ksh")
 
-        val availabilityResId = viewModel.displayAvailability.getOrAwaitValue()
+        var availabilityResId = viewModel.displayAvailability.getOrAwaitValue()
+        Assert.assertEquals(availabilityResId, R.drawable.ic_baseline_available)
+
+        val emptyList = listOf<TeamMember>()
+        viewModel.updateSelectedProperty(emptyList)
+        fullName  = viewModel.displayFullName.getOrAwaitValue()
+        Assert.assertEquals(fullName, "yosi Ksh")
+        availabilityResId = viewModel.displayAvailability.getOrAwaitValue()
+        Assert.assertEquals(availabilityResId, R.drawable.ic_baseline_available)
+
+        val differentList = listOf<TeamMember>(TeamMember("yosi",
+        "Ksh",
+        true,
+        "0548166800",
+        "rotem@gmai",
+        "")
+        )
+        viewModel.updateSelectedProperty(differentList)
+        fullName  = viewModel.displayFullName.getOrAwaitValue()
+        Assert.assertEquals(fullName, "yosi Ksh")
+        availabilityResId = viewModel.displayAvailability.getOrAwaitValue()
         Assert.assertEquals(availabilityResId, R.drawable.ic_baseline_available)
     }
 }
