@@ -21,32 +21,36 @@ class MapFragment : Fragment() {
         return@lazy ViewModelProvider(this, viewModelFactory).get(MapViewModel::class.java)
     }
     private val refreshViewModel: RefreshViewModel by activityViewModels()
+
     private var marker : Marker? = null
+
     private lateinit var map : GoogleMap
+
     private val callback = OnMapReadyCallback { googleMap ->
         map = googleMap
-        val markerOptions = viewModel.getMarkerOption()
-        val cameraUpdate = viewModel.getCameraUpdate()
-        marker = map.addMarker(markerOptions)
-        map.moveCamera(cameraUpdate)
-        map.uiSettings.isMapToolbarEnabled = false
-        if (viewModel.isMarkerShown.value == false){
-            changeMarkerVisibility(marker)
-        }
+        mapInit()
         viewModel.selectedProperty.observe(viewLifecycleOwner,{
             onSelectedPropertyChange()
         })
     }
 
+
+    private fun mapInit(){
+        onSelectedPropertyChange()
+        map.uiSettings.isMapToolbarEnabled = false
+        if (viewModel.isMarkerShown.value == false){
+            changeMarkerVisibility(marker)
+        }
+    }
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
         })
+
         setHasOptionsMenu(true)
         (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         return inflater.inflate(R.layout.map_fragment, container, false)
