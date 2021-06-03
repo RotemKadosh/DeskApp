@@ -16,7 +16,10 @@ import com.google.android.gms.maps.model.Marker
 
 class MapFragment : Fragment() {
 
-    private lateinit var viewModel: MapViewModel
+    private val viewModel: MapViewModel by lazy {
+        val viewModelFactory = MapViewModelFactory( MapFragmentArgs.fromBundle(requireArguments()).selectedProperty)
+        return@lazy ViewModelProvider(this, viewModelFactory).get(MapViewModel::class.java)
+    }
     private val refreshViewModel: RefreshViewModel by activityViewModels()
     private var marker : Marker? = null
     private lateinit var map : GoogleMap
@@ -40,8 +43,7 @@ class MapFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val viewModelFactory = MapViewModelFactory( MapFragmentArgs.fromBundle(requireArguments()).selectedProperty)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MapViewModel::class.java)
+
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
         })
