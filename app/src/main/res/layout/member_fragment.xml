@@ -50,11 +50,20 @@
             app:layout_constrainedWidth="true"
             app:layout_constraintBottom_toTopOf="@+id/phone_number"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/phone_icon"
             app:layout_constraintHorizontal_bias="0.0"
             android:layout_marginStart="@dimen/margin_default"
             app:layout_constraintTop_toBottomOf="@+id/main_photo_image"
             tools:text="Rotem Kadosh" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/phone_icon"
+            app:layout_constraintEnd_toStartOf="@id/phone_number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/phone_number"
+            app:layout_constraintBottom_toBottomOf="@id/phone_number"
+            android:src="@drawable/ic_baseline_phone_24"/>
 
         <TextView
             android:id="@+id/phone_number"
@@ -67,13 +76,21 @@
             app:layout_constraintStart_toStartOf="@+id/member_name"
             app:layout_constraintTop_toBottomOf="@+id/member_name"
             tools:text="000-000-0000" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/email_icon"
+            app:layout_constraintEnd_toStartOf="@id/email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/email"
+            app:layout_constraintBottom_toBottomOf="@id/email"
+            android:src="@drawable/ic_baseline_alternate_email_24"/>
 
         <TextView
             android:id="@+id/email"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_default"
-            android:layout_marginBottom="@dimen/margin_default"
             android:text="@{viewModel.selectedProperty.email}"
             android:maxLines="3"
             android:ellipsize="end"
@@ -81,6 +98,15 @@
             app:layout_constraintStart_toStartOf="@+id/phone_number"
             app:layout_constraintTop_toBottomOf="@+id/phone_number"
             tools:text="0000@email.com" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_icon"
+            app:layout_constraintEnd_toStartOf="@id/location_text"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/location_text"
+            app:layout_constraintBottom_toBottomOf="@id/location_text"
+            android:src="@drawable/ic_baseline_location_on_24"/>
 
         <TextView
             android:id="@+id/location_text"
@@ -95,5 +121,6 @@
             app:layout_constraintStart_toStartOf="@+id/email"
             app:layout_constraintTop_toBottomOf="@+id/email"
             tools:text="placeholder" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
