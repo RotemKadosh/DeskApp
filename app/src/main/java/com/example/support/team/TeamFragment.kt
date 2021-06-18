@@ -3,6 +3,7 @@ package com.example.support.team
 import android.os.Bundle
 import android.view.*
 import android.view.inputmethod.EditorInfo
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -12,7 +13,9 @@ import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
 import com.example.support.databinding.TeamFragmentBinding
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 class TeamFragment : Fragment() {
@@ -52,6 +55,7 @@ class TeamFragment : Fragment() {
         refreshViewModel.members.observe(viewLifecycleOwner,{
             viewAdapter.submitList(it.toMutableList())
         })
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
         refreshViewModel.refreshData()
         return binding.root
     }

@@ -9,4 +9,5 @@
     <string name="avatar_content">avatar</string>
     <string name="available_content">available</string>
     <string name="refresh">refresh</string>
+    <string name="show_or_hide">show / hide marker</string>
 </resources>

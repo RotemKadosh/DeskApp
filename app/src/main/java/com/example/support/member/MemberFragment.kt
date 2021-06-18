@@ -10,12 +10,17 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.support.R
 import com.example.support.RefreshViewModel
+import com.example.support.databinding.MemberFragmentBinding
 import com.example.support.networking.TeamMember
 
 class MemberFragment : Fragment() {
     private lateinit var binding: MemberFragmentBinding
     private val refreshViewModel: RefreshViewModel by activityViewModels()
-    private lateinit var viewModel: MemberViewModel
+    private val viewModel: MemberViewModel by lazy {
+        val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
+        val viewModelFactory = MemberViewModelFactory(teamMember)
+        return@lazy ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -24,9 +29,7 @@ class MemberFragment : Fragment() {
         Log.d("back", "member - onCreateView")
         binding = MemberFragmentBinding.inflate(inflater)
         binding.lifecycleOwner = this
-        val teamMember: TeamMember = MemberFragmentArgs.fromBundle(requireArguments()).selectedProperty
-        val viewModelFactory = MemberViewModelFactory(teamMember)
-        viewModel = ViewModelProvider(this, viewModelFactory).get(MemberViewModel::class.java)
+
         refreshViewModel.members.observe(viewLifecycleOwner, {
             viewModel.updateSelectedProperty(it)
         })
